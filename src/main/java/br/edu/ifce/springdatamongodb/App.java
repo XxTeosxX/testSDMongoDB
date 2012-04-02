@@ -13,7 +13,7 @@ public class App
             System.out.println("Bootstrapping Folha de Pagamento");
             ConfigurableApplicationContext context = null;
             // use @Configuration using Java:
-            context = new ClassPathXmlApplicationContext("bootstrap.xml");
+            context = new ClassPathXmlApplicationContext("META-INF/spring/bootstrap.xml");
 
             // use XML application context:
             //context = new ClassPathXmlApplicationContext("META-INF/spring/applicationContext.xml");
