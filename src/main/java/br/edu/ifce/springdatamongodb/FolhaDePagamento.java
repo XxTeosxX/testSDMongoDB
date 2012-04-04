@@ -9,8 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 
@@ -70,8 +75,20 @@ public class FolhaDePagamento{
             for (FolhaPagamento f: folha_resultado){
                 for (Colaborador col:  f.getColaboradores()){
                     System.out.println("Colaborador : " + col);
+                    col.setSalarioAtual(1000f);
                 }
             }
+            
+            Date novadata = null;
+        try {
+            novadata = dataFormat.parse("01/2011");
+        } catch (ParseException ex) {
+            Logger.getLogger(FolhaDePagamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+
+           mongoOperations.updateFirst(new Query(Criteria.where("_class").is(FolhaPagamento.class)),
+		Update.update("data", novadata), "folhaPagamento");
 
             //delete
             mongoOperations.remove(folha);
