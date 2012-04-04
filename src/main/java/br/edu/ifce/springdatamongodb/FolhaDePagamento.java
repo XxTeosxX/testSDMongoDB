@@ -78,19 +78,14 @@ public class FolhaDePagamento{
                     col.setSalarioAtual(1000f);
                 }
             }
-            
-            Date novadata = null;
-        try {
-            novadata = dataFormat.parse("01/2011");
-        } catch (ParseException ex) {
-            Logger.getLogger(FolhaDePagamento.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
 
-           mongoOperations.updateFirst(new Query(Criteria.where("_class").is(FolhaPagamento.class)),
-		Update.update("data", novadata), "folhaPagamento");
+            mongoOperations.updateFirst(new Query(Criteria.where("totalDescontos").is(0)),
+		Update.update("totalDescontos", 1000000), FolhaPagamento.class);
+           
 
-            //delete
+         
+         
+         //delete
             mongoOperations.remove(folha);
 
 
